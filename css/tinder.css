@@ -403,6 +403,10 @@ body {
   transform: scale(1.15);
 }
 
+.events-none{
+  pointer-events: none;
+}
+
 /* icon size and colors */
 .fa-circle-user,
 .fa-comment-dots {

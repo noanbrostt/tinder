@@ -72,15 +72,18 @@ function repeat(transitionDuration = 350){
     setTimeout(function() {
       el.classList.remove("nope", "like", "super_like", "oops", "moving");
       el.style.opacity = 1;
+      setTimeout(function() {
+        // Reactivates the buttons with a slight delay so that the photo has time to be recognized
+        document.querySelector(".commands").classList.remove('events-none');
+      }, 140)
     }, transitionDuration);
     switchingPeople();
   }, transitionDuration);
 }
 
 function switchingPeople() {
-      // Switching people
       girlCount == girlLast ? girlCount = 1 : girlCount++;
-      document.querySelector(".photo").style.background = "url('../img/girl"+girlCount+".jpeg') center center/cover";
+      document.querySelector(".photo").style.background = "url('img/girl"+girlCount+".jpeg') center center/cover";
       switch (girlCount) {
         case 1:
           document.querySelector(".name").innerHTML = "Lorem";
@@ -122,34 +125,37 @@ function buttonEvent(reaction){
   // Random Y-deslocation beetwen -200px and 200px
   var y = Math.random() * 400 - 200;
   var rotate = x * y * 4e-4;
+  // Prevents giving new command before current one is finished
+  document.querySelector(".commands").classList.add('events-none');
   if (reaction == 'like'){
     // If the reaction was a "like", stamps "like"
-    el.classList.toggle('like');
+    el.classList.add('like');
   } else if (reaction == 'dislike'){
     // If the reaction was a "dislike", stamps "nope" and moves the photo to the left
-    el.classList.toggle('nope');
+    el.classList.add('nope');
     x*= -1 ;
   } else if (reaction == 'super_like'){
-    el.classList.toggle('super_like');
+    el.classList.add('super_like');
     x = rotate = 0;
     y = y < 0 ? y*3 : -y*3;
   } else if (reaction == 'oops'){
       el.style.transitionDuration = '0ms';
       el.style.opacity = 0;
       el.style.transform = "translate(0px, -535px)";
-      el.classList.toggle('oops');
-      girlCount == 1 ? girlCount = girlLast - 1 : girlCount-= 2;
+      el.classList.add('oops');
       switchingPeople();
+      girlCount == 1 ? girlCount = girlLast - 1 : girlCount-= 2;
       setTimeout(function() {
           el.style.transitionDuration  = transitionDuration*0.8 + 'ms';
           el.style.transform = "translate(0px, -0.01px)";
           el.style.opacity = 1;
           setTimeout(function() {
-              el.classList.remove("nope", "like", "super_like", "oops", "moving");
+              el.classList.remove("nope", "like", "super_like", "oops", "moving", "events-none");
               el.style.transform = '';
+              // Reactives the buttons
+              document.querySelector(".commands").classList.remove('events-none');
           }, 2*transitionDuration);
-
-      }, transitionDuration);
+        }, transitionDuration);
   }
 
   if (reaction !== 'oops'){
