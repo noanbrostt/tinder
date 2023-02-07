@@ -455,22 +455,23 @@ body {
   width: clamp(274px, 46.7vh, 345px);
   height: clamp(520px, 89.6vh, 660px);
   margin-top: -4px;
-  background: rgba(128, 128, 128, 0.881);
   text-align: center;
   transition: 400;
   opacity: 0.6;
   display: none;
 }
 
+.back-modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(128, 128, 128, 0.9);
+}
+
 .boost-modal-content {
   position: relative;
   top: 80%;
   transition: 400ms;
-}
-
-.boost-modal img {
-  border-radius: 15px 15px 0 0;
-  width: 96%;
 }
 
 .boost-inform {
@@ -533,4 +534,8 @@ body {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+}
+
+.boost-modal button:hover {
+  transform: scale(1.02);
 }

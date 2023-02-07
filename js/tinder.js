@@ -143,8 +143,8 @@ function buttonEvent(reaction){
       el.style.opacity = 0;
       el.style.transform = "translate(0px, -535px)";
       el.classList.add('oops');
-      switchingPeople();
       girlCount == 1 ? girlCount = girlLast - 1 : girlCount-= 2;
+      switchingPeople();
       setTimeout(function() {
           el.style.transitionDuration  = transitionDuration*0.8 + 'ms';
           el.style.transform = "translate(0px, -0.01px)";
@@ -184,7 +184,15 @@ document.querySelector('.fa-heart').parentNode.addEventListener('click', functio
 });
 
 document.querySelector('.fa-bolt').parentNode.addEventListener('click', function(){
-  boost();
+  boostModalIn();
+});
+
+// Boost modal goes out
+document.querySelector('.boost-confirm button').addEventListener('click', function(){
+  boostModalOut();
+});
+document.querySelector('.back-modal').addEventListener('click', function(){
+  boostModalOut();
 });
 
 // Clock
@@ -195,12 +203,7 @@ function clock() {
   document.querySelector(".clock").innerHTML = displayDate.substring(0, 5);
 }
 
-// Boost modal
-document.querySelector('.boost-confirm button').parentNode.addEventListener('click', function(){
-  boostGotIt('like');
-});
-
-function boostGotIt() {
+function boostModalOut() {
   var elParent = document.querySelector(".boost-modal");
   var el = document.querySelector(".boost-modal-content");
   el.style.top = "80%";
@@ -211,12 +214,12 @@ function boostGotIt() {
   }, 100);
 }
 
-function boost() {
+function boostModalIn() {
   var elParent = document.querySelector(".boost-modal");
   var el = document.querySelector(".boost-modal-content");
   elParent.style.display = "block";
-  el.style.opacity = 1;
   elParent.style.opacity = 1;
+  el.style.opacity = 1;
   setTimeout(function() {
     el.style.top = "12%";
   }, 50);
